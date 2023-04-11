@@ -1,18 +1,18 @@
-const path = require("path");
+const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: './src/index.tsx',
 
     output: {
-        path: path.resolve(__dirname, "./dist"),
-        filename: "bundle.js",
+        path: path.resolve(__dirname, './dist'),
+        filename: 'bundle.js',
     },
 
     plugins: [
         new HTMLWebpackPlugin({
-            template: "./public/index.html"
-        })
+            template: './public/index.html',
+        }),
     ],
 
     module: {
@@ -21,18 +21,25 @@ module.exports = {
                 test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader",
+                    loader: 'babel-loader',
                     options: {
-                        presets: ["@babel/preset-env", "@babel/preset-react", ["@babel/preset-typescript", {
-                            "allowNamespaces": true
-                        }]]
-                    }
-                }
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react',
+                            [
+                                '@babel/preset-typescript',
+                                {
+                                    allowNamespaces: true,
+                                },
+                            ],
+                        ],
+                    },
+                },
             },
-        ]
+        ],
     },
 
     resolve: {
-        extensions: ["*", ".js", ".jsx", ".ts", ".tsx", ".scss", ".css"],
-    }
-};
+        extensions: ['*', '.js', '.jsx', '.ts', '.tsx', '.scss', '.css'],
+    },
+}

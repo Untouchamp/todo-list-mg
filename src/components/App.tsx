@@ -1,6 +1,14 @@
-import React from "react";
-export const App = () => {
+import React from 'react'
+
+function App() {
+    const ss = 'text'
     return (
-        <div>Hello from React</div>
+        <div>
+            <h1>Sample text for header</h1>
+            <p>Ugly paragraph</p>
+            <p>{ss}</p>
+        </div>
     )
 }
+
+export default App
