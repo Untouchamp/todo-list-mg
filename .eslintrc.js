@@ -5,12 +5,10 @@ module.exports = {
         es2021: true,
     },
     extends: [
-        // 'eslint:recommended',
         'airbnb',
         'airbnb-typescript',
         'plugin:import/typescript',
         'plugin:react/recommended',
-        // 'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
     ],
     parser: '@typescript-eslint/parser',
@@ -30,8 +28,8 @@ module.exports = {
         },
     },
     rules: {
-        'prettier/prettier': 'error',
+        'prettier/prettier': 'off',
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-var-requires': 0,
     },
-}
+};
