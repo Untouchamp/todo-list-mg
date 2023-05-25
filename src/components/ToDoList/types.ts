@@ -1,14 +1,12 @@
-import { LegacyRef } from 'react';
-
 export type TaskType = {
     id: string;
-    task: string;
-    completed: boolean;
+    description: string;
+    isCompleted: boolean;
     isEditing: boolean;
 };
 
 export type TodoFormPropType = {
-    addTask: Function;
+    addTask: (task: string) => void;
 };
 
 export type TodoPropsType = {
@@ -21,11 +19,13 @@ export type TodoPropsType = {
 
 export type EditTodoFormPropType = {
     editTask: Function;
-    setNodeRef: LegacyRef<HTMLDivElement> | undefined;
-    style: { transform: string | undefined; transition: string | undefined };
     task: TaskType;
 };
 
 export type TodoWrapperType = {
     todoTasks: Array<TaskType>;
+};
+
+export type EditingPenIconPropType = {
+    isTaskCompleted: boolean;
 };

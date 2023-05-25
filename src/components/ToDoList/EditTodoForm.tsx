@@ -1,9 +1,11 @@
 import React, { FormEvent, useState } from 'react';
 import { EditTodoFormPropType } from './types';
+import INPUT_MAX_LENGTH from '../../constants/constants';
 
 function EditTodoForm(props: EditTodoFormPropType): JSX.Element {
-    const { setNodeRef, style, attributes, editTask, task } = props;
-    const [value, setValue] = useState(task.task);
+    const { editTask, task } = props;
+    const { description } = task;
+    const [value, setValue] = useState(description);
 
     function handleSubmit(event: FormEvent) {
         event.preventDefault();
@@ -13,7 +15,7 @@ function EditTodoForm(props: EditTodoFormPropType): JSX.Element {
     }
 
     return (
-        <div className="w-full" ref={setNodeRef} style={style} {...attributes}>
+        <div className="w-full">
             <form className="flex mb-4" onSubmit={handleSubmit}>
                 <div className="justify-items-stretch text-center h-full bg-transparent w-full text-white rounded-md cursor-pointer">
                     <input
@@ -21,7 +23,7 @@ function EditTodoForm(props: EditTodoFormPropType): JSX.Element {
                         className="w-[calc(100%-2rem-60.6px)] bg-purple-500/30 text-left py-3 px-4 rounded-l-md bg-transparent text-white placeholder:text-white/30"
                         placeholder="Update task"
                         value={value}
-                        maxLength={50}
+                        maxLength={INPUT_MAX_LENGTH}
                         onChange={(e) => setValue(e.target.value)}
                     />
                     <button

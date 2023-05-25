@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import uuid from 'uuidv4';
 import { TaskType, TodoWrapperType } from './types';
 import TodoForm from './TodoForm';
@@ -14,8 +13,8 @@ function TodoWrapper(props: TodoWrapperType): JSX.Element {
             ...tasks,
             {
                 id: uuid(),
-                task,
-                completed: false,
+                description: task,
+                isCompleted: false,
                 isEditing: false,
             },
         ]);
@@ -35,7 +34,11 @@ function TodoWrapper(props: TodoWrapperType): JSX.Element {
         setTasks(
             tasks.map((task) =>
                 task.id === id
-                    ? { ...task, task: taskText, isEditing: !task.isEditing }
+                    ? {
+                          ...task,
+                          description: taskText,
+                          isEditing: !task.isEditing,
+                      }
                     : task
             )
         );
@@ -44,7 +47,9 @@ function TodoWrapper(props: TodoWrapperType): JSX.Element {
     const toggleComplete = (id: string) => {
         setTasks(
             tasks.map((task) =>
-                task.id === id ? { ...task, completed: !task.completed } : task
+                task.id === id
+                    ? { ...task, isCompleted: !task.isCompleted }
+                    : task
             )
         );
     };
