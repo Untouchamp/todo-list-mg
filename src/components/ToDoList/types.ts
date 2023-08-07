@@ -29,3 +29,12 @@ export type TodoWrapperType = {
 export type EditingPenIconPropType = {
     isTaskCompleted: boolean;
 };
+
+export type CustomTypeHooksType = {
+    tasks: Array<TaskType>;
+    addTask: void;
+    deleteTodo: void;
+    editTodo: void;
+    editTask: void;
+    toggleComplete: void;
+};
