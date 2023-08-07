@@ -2,7 +2,7 @@ import { useState } from 'react';
 import uuid from 'uuidv4';
 import { TaskType } from '../components/ToDoList/types';
 
-const taskManagementHandler = (todoTasks) => {
+function taskManagementHandler(todoTasks: Array<TaskType>) {
     const [tasks, setTasks] = useState<Array<TaskType>>(todoTasks);
 
     const addTask = (task: string) => {
@@ -51,6 +51,6 @@ const taskManagementHandler = (todoTasks) => {
         );
     };
     return [tasks, addTask, deleteTodo, editTodo, editTask, toggleComplete];
-};
+}
 
 export default taskManagementHandler;
