@@ -20,37 +20,34 @@ function taskManagementHandler(todoTasks: Array<TaskType>) {
     const deleteTodo = (id: string) => {
         setTasks(tasks.filter((task) => task.id !== id));
     };
-    const editTodo = (id: string) => {
-        setTasks(
-            tasks.map((task) =>
-                task.id === id ? { ...task, isEditing: !task.isEditing } : task
-            )
-        );
-    };
-    const editTask = (id: string, taskText: string) => {
+
+    const updateTask = (
+        id: string,
+        taskText?: string,
+        isCompleted?: boolean
+    ) => {
         setTasks(
             tasks.map((task) =>
                 task.id === id
                     ? {
                           ...task,
-                          description: taskText,
-                          isEditing: !task.isEditing,
+                          description:
+                              taskText !== undefined
+                                  ? taskText
+                                  : task.description,
+                          isEditing:
+                              taskText !== undefined ? false : !task.isEditing,
+                          isCompleted:
+                              isCompleted !== undefined
+                                  ? isCompleted
+                                  : task.isCompleted,
                       }
                     : task
             )
         );
     };
 
-    const toggleComplete = (id: string) => {
-        setTasks(
-            tasks.map((task) =>
-                task.id === id
-                    ? { ...task, isCompleted: !task.isCompleted }
-                    : task
-            )
-        );
-    };
-    return [tasks, addTask, deleteTodo, editTodo, editTask, toggleComplete];
+    return [tasks, addTask, deleteTodo, updateTask];
 }
 
 export default taskManagementHandler;

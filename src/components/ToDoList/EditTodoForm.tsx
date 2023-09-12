@@ -3,13 +3,13 @@ import { EditTodoFormPropType } from './types';
 import INPUT_MAX_LENGTH from '../../constants/constants';
 
 function EditTodoForm(props: EditTodoFormPropType): JSX.Element {
-    const { editTask, task } = props;
+    const { updateTask, task } = props;
     const { description } = task;
     const [value, setValue] = useState(description);
 
     function handleSubmit(event: FormEvent) {
         event.preventDefault();
-        if (value.trim()) editTask(task.id, value.trim());
+        if (value.trim()) updateTask(task.id, value.trim());
 
         setValue('');
     }

@@ -12,13 +12,11 @@ export type TodoFormPropType = {
 export type TodoPropsType = {
     task: TaskType;
     deleteTodo: Function;
-    editTodo: Function;
-    editTask: Function;
-    toggleComplete: Function;
+    updateTask: Function;
 };
 
 export type EditTodoFormPropType = {
-    editTask: Function;
+    updateTask: Function;
     task: TaskType;
 };
 
@@ -32,9 +30,7 @@ export type EditingPenIconPropType = {
 
 export type CustomTypeHooksType = {
     tasks: Array<TaskType>;
-    addTask: void;
-    deleteTodo: void;
-    editTodo: void;
-    editTask: void;
-    toggleComplete: void;
+    addTask: Function;
+    deleteTodo: Function;
+    updateTask: Function;
 };
