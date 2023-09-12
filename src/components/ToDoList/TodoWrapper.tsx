@@ -4,8 +4,7 @@ import TodoForm from './TodoForm';
 import Todo from './Todo';
 import taskManagementHandler from '../../hooks/CustomTaskHooks';
 
-function TodoWrapper(props: TodoWrapperType): JSX.Element {
-    const { todoTasks } = props;
+function TodoWrapper({ todoTasks }: TodoWrapperType): JSX.Element {
     const [tasks, addTask, deleteTodo, updateTask]: CustomTypeHooksType =
         taskManagementHandler(todoTasks);
     return (
