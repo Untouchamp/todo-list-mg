@@ -24,7 +24,8 @@ function taskManagementHandler(todoTasks: Array<TaskType>) {
     const updateTask = (
         id: string,
         taskText?: string,
-        isCompleted?: boolean
+        isCompleted?: boolean,
+        isEditing?: boolean
     ) => {
         setTasks(
             tasks.map((task) =>
@@ -35,12 +36,14 @@ function taskManagementHandler(todoTasks: Array<TaskType>) {
                               taskText !== undefined
                                   ? taskText
                                   : task.description,
-                          isEditing:
-                              taskText !== undefined ? false : !task.isEditing,
                           isCompleted:
                               isCompleted !== undefined
                                   ? isCompleted
                                   : task.isCompleted,
+                          isEditing:
+                              isEditing !== undefined
+                                  ? isEditing
+                                  : task.isEditing,
                       }
                     : task
             )

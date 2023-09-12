@@ -6,9 +6,6 @@
   "repository": "https://github.com/Untouchamp/todo-list-mg.git",
   "author": "David Kuchukhidze <untouchamp@gmail.com>",
   "license": "MIT",
-  "prettier": {
-    "endOfLine": "auto"
-  },
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
