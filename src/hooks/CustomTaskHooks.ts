@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import uuid from 'uuidv4';
-import { TaskType } from '../components/ToDoList/types';
+import { TaskType, UpdateTaskParams } from '../components/ToDoList/types';
 
 function taskManagementHandler(todoTasks: Array<TaskType>) {
     const [tasks, setTasks] = useState<Array<TaskType>>(todoTasks);
@@ -21,12 +21,12 @@ function taskManagementHandler(todoTasks: Array<TaskType>) {
         setTasks(tasks.filter((task) => task.id !== id));
     };
 
-    const updateTask = (
-        id: string,
-        taskText?: string,
-        isCompleted?: boolean,
-        isEditing?: boolean
-    ) => {
+    const updateTask = ({
+        id,
+        taskText,
+        isCompleted,
+        isEditing,
+    }: UpdateTaskParams) => {
         const taskIndex = tasks.findIndex((task) => task.id === id);
 
         if (taskIndex !== -1) {

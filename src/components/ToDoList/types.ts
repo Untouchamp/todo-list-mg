@@ -34,3 +34,10 @@ export type CustomTypeHooksType = {
     deleteTodo: Function;
     updateTask: Function;
 };
+
+export type UpdateTaskParams = {
+    id: string;
+    taskText?: string;
+    isCompleted?: boolean;
+    isEditing?: boolean;
+};

@@ -10,7 +10,11 @@ function EditTodoForm(props: EditTodoFormPropType): JSX.Element {
     function handleSubmit(event: FormEvent) {
         event.preventDefault();
         if (value.trim())
-            updateTask(task.id, value.trim(), undefined, !task.isEditing);
+            updateTask({
+                id: task.id,
+                taskText: value.trim(),
+                isEditing: !task.isEditing,
+            });
 
         setValue('');
     }
