@@ -27,27 +27,21 @@ function taskManagementHandler(todoTasks: Array<TaskType>) {
         isCompleted?: boolean,
         isEditing?: boolean
     ) => {
-        setTasks(
-            tasks.map((task) =>
-                task.id === id
-                    ? {
-                          ...task,
-                          description:
-                              taskText !== undefined
-                                  ? taskText
-                                  : task.description,
-                          isCompleted:
-                              isCompleted !== undefined
-                                  ? isCompleted
-                                  : task.isCompleted,
-                          isEditing:
-                              isEditing !== undefined
-                                  ? isEditing
-                                  : task.isEditing,
-                      }
-                    : task
-            )
-        );
+        const taskIndex = tasks.findIndex((task) => task.id === id);
+
+        if (taskIndex !== -1) {
+            const updatedTask = {
+                ...tasks[taskIndex],
+                description: taskText ?? tasks[taskIndex].description,
+                isCompleted: isCompleted ?? tasks[taskIndex].isCompleted,
+                isEditing: isEditing ?? tasks[taskIndex].isEditing,
+            };
+
+            const updatedTasks = [...tasks];
+            updatedTasks[taskIndex] = updatedTask;
+
+            setTasks(updatedTasks);
+        }
     };
 
     return [tasks, addTask, deleteTodo, updateTask];
