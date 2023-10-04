@@ -2,7 +2,7 @@ import { useState } from 'react';
 import uuid from 'uuidv4';
 import { TaskType, UpdateTaskParams } from '../components/ToDoList/types';
 
-function taskManagementHandler(todoTasks: Array<TaskType>) {
+function useCustomTaskHooks(todoTasks: Array<TaskType>) {
     const [tasks, setTasks] = useState<Array<TaskType>>(todoTasks);
 
     const addTask = (task: string) => {
@@ -47,4 +47,4 @@ function taskManagementHandler(todoTasks: Array<TaskType>) {
     return [tasks, addTask, deleteTodo, updateTask];
 }
 
-export default taskManagementHandler;
+export default useCustomTaskHooks;
