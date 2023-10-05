@@ -1,12 +1,12 @@
 import React from 'react';
+import './App.css';
+import TodoWrapper from './ToDoList/TodoWrapper';
+import tasksMockData from '../../mocks/TasksMockData';
 
 function App(): JSX.Element {
-    const ss = 'text';
     return (
         <div>
-            <h1>Sample text for header</h1>
-            <p>Ugly paragraph</p>
-            <p>{ss}</p>
+            <TodoWrapper todoTasks={tasksMockData} />
         </div>
     );
 }

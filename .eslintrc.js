@@ -31,5 +31,6 @@ module.exports = {
         'prettier/prettier': 'off',
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-var-requires': 0,
+        'import/no-named-as-default': 0,
     },
 };
