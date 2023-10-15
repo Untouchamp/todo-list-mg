@@ -1,24 +1,21 @@
-import { useState } from 'react';
-import uuid from 'uuidv4';
-import { TaskType, UpdateTaskParams } from '../components/ToDoList/types';
+import { UpdateTaskParams } from '../components/ToDoList/types';
+import { useAppDispatch } from '../app/hooks';
+import {
+    addTodoAsync,
+    deleteTodoAsync,
+    updateTodo,
+    updateTodoAsync,
+} from '../features/todoList/TodosSlicer';
 
-function useCustomTaskHooks(todoTasks: Array<TaskType>) {
-    const [tasks, setTasks] = useState<Array<TaskType>>(todoTasks);
+function useCustomTaskHooks() {
+    const dispatch = useAppDispatch();
 
     const addTask = (task: string) => {
-        setTasks([
-            ...tasks,
-            {
-                id: uuid(),
-                description: task,
-                isCompleted: false,
-                isEditing: false,
-            },
-        ]);
+        dispatch(addTodoAsync(task));
     };
 
-    const deleteTodo = (id: string) => {
-        setTasks(tasks.filter((task) => task.id !== id));
+    const deleteTask = (id: string) => {
+        dispatch(deleteTodoAsync(id));
     };
 
     const updateTask = ({
@@ -27,24 +24,10 @@ function useCustomTaskHooks(todoTasks: Array<TaskType>) {
         isCompleted,
         isEditing,
     }: UpdateTaskParams) => {
-        const taskIndex = tasks.findIndex((task) => task.id === id);
-
-        if (taskIndex !== -1) {
-            const updatedTask = {
-                ...tasks[taskIndex],
-                description: taskText ?? tasks[taskIndex].description,
-                isCompleted: isCompleted ?? tasks[taskIndex].isCompleted,
-                isEditing: isEditing ?? tasks[taskIndex].isEditing,
-            };
-
-            const updatedTasks = [...tasks];
-            updatedTasks[taskIndex] = updatedTask;
-
-            setTasks(updatedTasks);
-        }
+        dispatch(updateTodoAsync({ id, taskText, isCompleted, isEditing }));
     };
 
-    return [tasks, addTask, deleteTodo, updateTask];
+    return [addTask, deleteTask, updateTask];
 }
 
 export default useCustomTaskHooks;

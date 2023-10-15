@@ -6,7 +6,7 @@ import TrashBinIcon from '../../assets/icons/TrashBinIcon';
 import EditingPenIcon from '../../assets/icons/EditingPenIcon';
 
 function Todo(props: TodoPropsType): JSX.Element {
-    const { task, deleteTodo, updateTask } = props;
+    const { task, deleteTask, updateTask } = props;
     const { id, isEditing, description, isCompleted } = task;
 
     return (
@@ -41,7 +41,7 @@ function Todo(props: TodoPropsType): JSX.Element {
                         >
                             <EditingPenIcon isTaskCompleted={isCompleted} />
                         </button>
-                        <button type="button" onClick={() => deleteTodo(id)}>
+                        <button type="button" onClick={() => deleteTask(id)}>
                             <TrashBinIcon />
                         </button>
                     </div>
