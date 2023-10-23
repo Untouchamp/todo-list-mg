@@ -1,17 +1,25 @@
-import { UpdateTaskParams } from '../components/ToDoList/types';
-import { useAppDispatch } from '../app/hooks';
+import { TaskType, UpdateTaskParams } from '../components/ToDoList/types';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
     addTodoAsync,
     deleteTodoAsync,
-    updateTodo,
     updateTodoAsync,
-} from '../features/todoList/TodosSlicer';
+} from '../store/TodosSlicer';
+import { selectAllTodos } from '../store/store';
+import uuid from 'uuidv4';
 
 function useCustomTaskHooks() {
     const dispatch = useAppDispatch();
+    const todos: Array<TaskType> = useAppSelector(selectAllTodos);
 
     const addTask = (task: string) => {
-        dispatch(addTodoAsync(task));
+        const todo = {
+            id: uuid(),
+            description: task,
+            isCompleted: false,
+            isEditing: false,
+        };
+        dispatch(addTodoAsync(todo));
     };
 
     const deleteTask = (id: string) => {
@@ -27,7 +35,7 @@ function useCustomTaskHooks() {
         dispatch(updateTodoAsync({ id, taskText, isCompleted, isEditing }));
     };
 
-    return [addTask, deleteTask, updateTask];
+    return [todos, addTask, deleteTask, updateTask];
 }
 
 export default useCustomTaskHooks;
