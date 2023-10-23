@@ -1,38 +1,31 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TaskType, UpdateTaskParams } from '../components/ToDoList/types';
+import { TaskType, UpdateTaskParams } from '../../components/ToDoList/types';
 
-export const getTodosAsync = createAsyncThunk<Array<TaskType>>(
-    'todos/getTodosAsync',
-    async () => {
+const todoServices = {
+    getAllTodosService: async () => {
         const response = await fetch('http://localhost:7000/todos');
         if (response.ok) {
             const todos = await response.json();
             return todos as Array<TaskType>;
         }
-    }
-);
-
-export const addTodoAsync = createAsyncThunk<{ todo: TaskType }>(
-    'todos/addTodoAsync',
-    async (payload: string) => {
+        return null;
+    },
+    addTodoService: async (payload: string) => {
         const resp = await fetch('http://localhost:7000/todos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title: payload }),
+            body: JSON.stringify({ todo: payload }),
         });
 
         if (resp.ok) {
             const todo = await resp.json();
-            return { todo } as { todo: TaskType };
+            return todo as TaskType;
         }
-    }
-);
-
-export const updateTodoAsync = createAsyncThunk<{ todo: TaskType }>(
-    'todos/updateTodoAsync',
-    async (payload: UpdateTaskParams) => {
+        return null;
+    },
+    updateTodoService: async (payload: UpdateTaskParams) => {
         const resp = await fetch(`http://localhost:7000/todos/${payload.id}`, {
             method: 'PATCH',
             headers: {
@@ -43,14 +36,11 @@ export const updateTodoAsync = createAsyncThunk<{ todo: TaskType }>(
 
         if (resp.ok) {
             const todo = await resp.json();
-            return { todo } as { todo: TaskType };
+            return todo as TaskType;
         }
-    }
-);
-
-export const deleteTodoAsync = createAsyncThunk<{ id: string }>(
-    'todos/deleteTodoAsync',
-    async (payload: number) => {
+        return null;
+    },
+    deleteTodoService: async (payload: number) => {
         const resp = await fetch(`http://localhost:7000/todos/${payload}`, {
             method: 'DELETE',
         });
@@ -58,5 +48,13 @@ export const deleteTodoAsync = createAsyncThunk<{ id: string }>(
         if (resp.ok) {
             return { id: payload };
         }
-    }
-);
+        return null;
+    },
+};
+
+export const {
+    getAllTodosService,
+    addTodoService,
+    updateTodoService,
+    deleteTodoService,
+} = todoServices;

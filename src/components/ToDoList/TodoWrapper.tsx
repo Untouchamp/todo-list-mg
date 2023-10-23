@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { CustomTypeHooksType, TaskType } from './types';
+import { CustomTypeHooksType } from './types';
 import TodoForm from './TodoForm';
 import Todo from './Todo';
 import useCustomTaskHooks from '../../hooks/CustomTaskHooks';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { getTodosAsync } from '../../services/todoServices';
+import { useAppDispatch } from '../../store/hooks';
+import { getTodosAsync } from '../../store/TodosSlicer';
 
 function TodoWrapper(): JSX.Element {
     const [todos, addTask, deleteTask, updateTask]: CustomTypeHooksType =
