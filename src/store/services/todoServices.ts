@@ -1,54 +1,65 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TaskType, UpdateTaskParams } from '../../components/ToDoList/types';
 
 const todoServices = {
     getAllTodosService: async () => {
-        const response = await fetch('http://localhost:7000/todos');
-        if (response.ok) {
+        try {
+            const response = await fetch('http://localhost:7000/todos');
+
             const todos = await response.json();
             return todos as Array<TaskType>;
+        } catch (error) {
+            console.error('Error in getAllTodosService:', error);
+            return null;
         }
-        return null;
     },
     addTodoService: async (payload: string) => {
-        const resp = await fetch('http://localhost:7000/todos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ todo: payload }),
-        });
+        try {
+            const resp = await fetch('http://localhost:7000/todos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ todo: payload }),
+            });
 
-        if (resp.ok) {
             const todo = await resp.json();
             return todo as TaskType;
+        } catch (error) {
+            console.error('Error in addTodoService:', error);
+            return null;
         }
-        return null;
     },
     updateTodoService: async (payload: UpdateTaskParams) => {
-        const resp = await fetch(`http://localhost:7000/todos/${payload.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        });
+        try {
+            const resp = await fetch(
+                `http://localhost:7000/todos/${payload.id}`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                }
+            );
 
-        if (resp.ok) {
             const todo = await resp.json();
             return todo as TaskType;
+        } catch (error) {
+            console.error('Error in updateTodoService:', error);
+            return null;
         }
-        return null;
     },
     deleteTodoService: async (payload: number) => {
-        const resp = await fetch(`http://localhost:7000/todos/${payload}`, {
-            method: 'DELETE',
-        });
+        try {
+            const resp = await fetch(`http://localhost:7000/todos/${payload}`, {
+                method: 'DELETE',
+            });
 
-        if (resp.ok) {
             return { id: payload };
+        } catch (error) {
+            console.error('Error in deleteTodoService:', error);
+            return null;
         }
-        return null;
     },
 };
 
