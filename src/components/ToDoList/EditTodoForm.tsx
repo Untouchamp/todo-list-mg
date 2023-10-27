@@ -12,7 +12,7 @@ function EditTodoForm(props: EditTodoFormPropType): JSX.Element {
         if (value.trim())
             updateTask({
                 id: task.id,
-                taskText: value.trim(),
+                description: value.trim(),
                 isEditing: !task.isEditing,
             });
 

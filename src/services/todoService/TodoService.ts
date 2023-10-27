@@ -1,10 +1,17 @@
 import { TaskType, UpdateTaskParams } from '../../components/ToDoList/types';
-
-const todoServices = {
+enum HTTP_METHODS {
+    GET = 'GET',
+    POST = 'POST',
+    PATCH = 'PATCH',
+    DELETE = 'DELETE',
+}
+const CONTENT_TYPE = 'application/json';
+//TODO add types for each service
+const todoService = {
     getAllTodosService: async () => {
         try {
-            const response = await fetch('http://localhost:7000/todos');
-
+            const response = await fetch(`${process.env.SERVICE_URL}/todos`);
+            //TODO how to set up database Real Time Database (preferred horizontal structure)
             const todos = await response.json();
             return todos as Array<TaskType>;
         } catch (error) {
@@ -14,10 +21,10 @@ const todoServices = {
     },
     addTodoService: async (payload: string) => {
         try {
-            const resp = await fetch('http://localhost:7000/todos', {
-                method: 'POST',
+            const resp = await fetch(`${process.env.SERVICE_URL}/todos`, {
+                method: HTTP_METHODS.POST,
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': CONTENT_TYPE,
                 },
                 body: JSON.stringify({ todo: payload }),
             });
@@ -32,11 +39,11 @@ const todoServices = {
     updateTodoService: async (payload: UpdateTaskParams) => {
         try {
             const resp = await fetch(
-                `http://localhost:7000/todos/${payload.id}`,
+                `${process.env.SERVICE_URL}/todos/${payload.id}`,
                 {
-                    method: 'PATCH',
+                    method: HTTP_METHODS.PATCH,
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': CONTENT_TYPE,
                     },
                     body: JSON.stringify(payload),
                 }
@@ -51,9 +58,12 @@ const todoServices = {
     },
     deleteTodoService: async (payload: number) => {
         try {
-            const resp = await fetch(`http://localhost:7000/todos/${payload}`, {
-                method: 'DELETE',
-            });
+            const resp = await fetch(
+                `${process.env.SERVICE_URL}/todos/${payload}`,
+                {
+                    method: HTTP_METHODS.DELETE,
+                }
+            );
 
             return { id: payload };
         } catch (error) {
@@ -63,9 +73,4 @@ const todoServices = {
     },
 };
 
-export const {
-    getAllTodosService,
-    addTodoService,
-    updateTodoService,
-    deleteTodoService,
-} = todoServices;
+export default todoService;

@@ -14,7 +14,7 @@ function useCustomTaskHooks() {
 
     const addTask = (task: string) => {
         const todo = {
-            // id: uuid(),
+            id: uuid(),
             description: task,
             isCompleted: false,
             isEditing: false,
@@ -28,11 +28,11 @@ function useCustomTaskHooks() {
 
     const updateTask = ({
         id,
-        taskText,
+        description,
         isCompleted,
         isEditing,
     }: UpdateTaskParams) => {
-        dispatch(updateTodoAsync({ id, taskText, isCompleted, isEditing }));
+        dispatch(updateTodoAsync({ id, description, isCompleted, isEditing }));
     };
 
     return [todos, addTask, deleteTask, updateTask, dispatch];
