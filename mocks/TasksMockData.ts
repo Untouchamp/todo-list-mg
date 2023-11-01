@@ -1,33 +1,32 @@
-import uuid from 'uuidv4';
 import { TaskType } from '../src/components/ToDoList/types';
 
 const tasksMockData: Array<TaskType> = [
     {
-        id: uuid(),
+        id: 'jkhhkbhvbj',
         description: 'Brush your teeth',
         isCompleted: false,
         isEditing: false,
     },
     {
-        id: uuid(),
+        id: 'guugvkbjl',
         description: 'Go to school',
         isCompleted: false,
         isEditing: false,
     },
     {
-        id: uuid(),
+        id: 'llnnmjkj',
         description: 'Buy groceries',
         isCompleted: false,
         isEditing: false,
     },
     {
-        id: uuid(),
+        id: 'iuytrcvhb',
         description: 'Pay bills',
         isCompleted: true,
         isEditing: false,
     },
     {
-        id: uuid(),
+        id: 'plkmnbfg',
         description: 'Call mom',
         isCompleted: false,
         isEditing: false,
