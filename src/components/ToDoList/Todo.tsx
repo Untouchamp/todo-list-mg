@@ -21,7 +21,7 @@ function Todo(props: TodoPropsType): JSX.Element {
                     <p
                         className={`${
                             isCompleted ? 'text-purple-300 line-through' : ''
-                        } w-fit text-left`}
+                        } w-fit text-left select-none`}
                         onClick={() => {
                             updateTask({ id, isCompleted: !task.isCompleted });
                         }}
