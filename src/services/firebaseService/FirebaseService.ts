@@ -9,7 +9,10 @@ const firebaseConfig = {
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.FIREBASE_MSG_SENDER_ID,
     appId: process.env.FIREBASE_APP_ID,
-    databaseURL: process.env.FIREBASE_DB_URL,
+    databaseURL:
+        process.env.NODE_ENV === 'development'
+            ? 'http://127.0.0.1:9000/'
+            : process.env.FIREBASE_DB_URL,
 };
 
 // Initialize Firebase

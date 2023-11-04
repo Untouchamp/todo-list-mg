@@ -2,16 +2,16 @@ import { get, push, ref, remove, set, update } from 'firebase/database';
 import { TaskType, UpdateTaskParams } from '../../components/ToDoList/types';
 import { database } from '../firebaseService/FirebaseService';
 
+const TODOS_DATABASE_PATH = 'todos';
+
 const todoService = {
+    //TODO refactor using local database from firebase
     getAllTodos: async (): Promise<TaskType[] | null> => {
-        const todosRef = ref(database, 'todos');
+        const todosRef = ref(database, TODOS_DATABASE_PATH);
         try {
             const snapshot = await get(todosRef);
             const todos: TaskType[] = snapshot.exists()
-                ? Object.values(snapshot.val()).map((childSnapshot: any) => ({
-                      id: childSnapshot.key,
-                      ...childSnapshot,
-                  }))
+                ? Object.values(snapshot.val())
                 : [];
 
             return todos;
@@ -22,50 +22,40 @@ const todoService = {
         }
     },
     createTodo: async (todo: TaskType): Promise<TaskType | null> => {
-        const todosRef = ref(database, `todos`);
+        const todosRef = ref(database, TODOS_DATABASE_PATH);
         try {
             const newTodoRef = push(todosRef);
-            const newTodo = {
+            if (newTodoRef.key === null) return null;
+            const newTodo: TaskType = {
                 ...todo,
                 id: newTodoRef.key,
             };
             await set(newTodoRef, newTodo);
-            return newTodo as TaskType;
+            return newTodo;
         } catch (error) {
             console.error('Error updating task:', error);
             // throw error; // You can handle the error as needed
             return null;
         }
     },
-    updateTodo: async (params: UpdateTaskParams): Promise<TaskType | null> => {
-        const { id } = params;
+    updateTodo: async (taskUpdates: TaskType): Promise<TaskType | null> => {
+        const { id } = taskUpdates;
 
-        const todoRef = ref(database, `todos/${id}`);
+        const todoRef = ref(database, `${TODOS_DATABASE_PATH}/${id}`);
 
-        const updates = Object.fromEntries(
-            Object.entries(params).filter(([_, value]) => value !== undefined)
-        );
         try {
             // Update the task in the database
-            await update(todoRef, updates);
-
-            // Fetch the updated task from the database
-            const updatedTaskSnapshot = await get(todoRef);
-            const updatedTask = updatedTaskSnapshot.val();
-            if (updatedTask) {
-                // Return the updated task
-                return updatedTask;
-            }
+            await update(todoRef, taskUpdates);
             // Task not found
-            return null;
         } catch (error) {
             console.error('Error updating task:', error);
             // throw error; // You can handle the error as needed
             return null;
         }
+        return taskUpdates;
     },
     deleteTodo: async (todoId: string): Promise<{ id: string } | null> => {
-        const todoRef = ref(database, `todos/${todoId}`);
+        const todoRef = ref(database, `${TODOS_DATABASE_PATH}/${todoId}`);
         try {
             await remove(todoRef);
         } catch (error) {

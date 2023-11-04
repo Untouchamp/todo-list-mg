@@ -24,13 +24,8 @@ function useCustomTaskHooks() {
         dispatch(deleteTodoAsync(id));
     };
 
-    const updateTask = ({
-        id,
-        description,
-        isCompleted,
-        isEditing,
-    }: UpdateTaskParams) => {
-        dispatch(updateTodoAsync({ id, description, isCompleted, isEditing }));
+    const updateTask = (taskUpdates: TaskType) => {
+        dispatch(updateTodoAsync(taskUpdates));
     };
 
     return [todos, addTask, deleteTask, updateTask, dispatch];

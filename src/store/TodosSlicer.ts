@@ -24,7 +24,7 @@ export const addTodoAsync = createAsyncThunk(
 
 export const updateTodoAsync = createAsyncThunk(
     'todos/updateTodoAsync',
-    async (payload: UpdateTaskParams) => {
+    async (payload: TaskType) => {
         const updatedTodo = await todoService.updateTodo(payload);
         return updatedTodo;
     }

@@ -23,7 +23,10 @@ function Todo(props: TodoPropsType): JSX.Element {
                             isCompleted ? 'text-purple-300 line-through' : ''
                         } w-fit text-left select-none`}
                         onClick={() => {
-                            updateTask({ id, isCompleted: !task.isCompleted });
+                            updateTask({
+                                ...task,
+                                isCompleted: !task.isCompleted,
+                            });
                         }}
                     >
                         {description}
@@ -34,7 +37,7 @@ function Todo(props: TodoPropsType): JSX.Element {
                             disabled={isCompleted}
                             onClick={() =>
                                 updateTask({
-                                    id,
+                                    ...task,
                                     isEditing: !task.isEditing,
                                 })
                             }
