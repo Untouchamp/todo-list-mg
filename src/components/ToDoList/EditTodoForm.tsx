@@ -11,8 +11,8 @@ function EditTodoForm(props: EditTodoFormPropType): JSX.Element {
         event.preventDefault();
         if (value.trim())
             updateTask({
-                id: task.id,
-                taskText: value.trim(),
+                ...task,
+                description: value.trim(),
                 isEditing: !task.isEditing,
             });
 

@@ -4,17 +4,12 @@ import {
     createSlice,
 } from '@reduxjs/toolkit';
 import { TaskType, UpdateTaskParams } from '../components/ToDoList/types';
-import {
-    getAllTodosService,
-    addTodoService,
-    deleteTodoService,
-    updateTodoService,
-} from './services/todoServices';
+import todoService from '../services/todoService/TodoService';
 
 export const getTodosAsync = createAsyncThunk(
     'todos/getTodosAsync',
     async () => {
-        const todos = await getAllTodosService();
+        const todos = await todoService.getAllTodos();
         return todos;
     }
 );
@@ -22,15 +17,15 @@ export const getTodosAsync = createAsyncThunk(
 export const addTodoAsync = createAsyncThunk(
     'todos/addTodoAsync',
     async (payload: string) => {
-        const addedTodo = await addTodoService(payload);
+        const addedTodo = await todoService.createTodo(payload);
         return addedTodo;
     }
 );
 
 export const updateTodoAsync = createAsyncThunk(
     'todos/updateTodoAsync',
-    async (payload: UpdateTaskParams) => {
-        const updatedTodo = await updateTodoService(payload);
+    async (payload: TaskType) => {
+        const updatedTodo = await todoService.updateTodo(payload);
         return updatedTodo;
     }
 );
@@ -38,7 +33,7 @@ export const updateTodoAsync = createAsyncThunk(
 export const deleteTodoAsync = createAsyncThunk(
     'todos/deleteTodoAsync',
     async (payload: number) => {
-        const deletedTodoId = await deleteTodoService(payload);
+        const deletedTodoId = await todoService.deleteTodo(payload);
         return deletedTodoId;
     }
 );

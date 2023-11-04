@@ -37,7 +37,7 @@ export type CustomTypeHooksType = {
 
 export type UpdateTaskParams = {
     id: string;
-    taskText?: string;
+    description?: string;
     isCompleted?: boolean;
     isEditing?: boolean;
 };

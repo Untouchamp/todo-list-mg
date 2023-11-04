@@ -6,7 +6,6 @@ import {
     updateTodoAsync,
 } from '../store/TodosSlicer';
 import { selectAllTodos } from '../store/store';
-import uuid from 'uuidv4';
 
 function useCustomTaskHooks() {
     const dispatch = useAppDispatch();
@@ -14,7 +13,6 @@ function useCustomTaskHooks() {
 
     const addTask = (task: string) => {
         const todo = {
-            // id: uuid(),
             description: task,
             isCompleted: false,
             isEditing: false,
@@ -26,13 +24,8 @@ function useCustomTaskHooks() {
         dispatch(deleteTodoAsync(id));
     };
 
-    const updateTask = ({
-        id,
-        taskText,
-        isCompleted,
-        isEditing,
-    }: UpdateTaskParams) => {
-        dispatch(updateTodoAsync({ id, taskText, isCompleted, isEditing }));
+    const updateTask = (taskUpdates: TaskType) => {
+        dispatch(updateTodoAsync(taskUpdates));
     };
 
     return [todos, addTask, deleteTask, updateTask, dispatch];

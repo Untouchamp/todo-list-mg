@@ -1,6 +1,8 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: './src/index.tsx',
@@ -17,6 +19,8 @@ module.exports = {
         new InterpolateHtmlPlugin({
             PUBLIC_URL: 'public',
         }),
+        new NodePolyfillPlugin(),
+        new Dotenv(),
     ],
 
     module: {
