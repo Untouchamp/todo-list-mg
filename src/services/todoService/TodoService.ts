@@ -1,76 +1,68 @@
+import { get, push, ref, remove, set, update } from 'firebase/database';
 import { TaskType, UpdateTaskParams } from '../../components/ToDoList/types';
-enum HTTP_METHODS {
-    GET = 'GET',
-    POST = 'POST',
-    PATCH = 'PATCH',
-    DELETE = 'DELETE',
-}
-const CONTENT_TYPE = 'application/json';
-//TODO add types for each service
+import { database } from '../firebaseService/FirebaseService';
+
+const TODOS_DATABASE_PATH = 'todos';
+
 const todoService = {
-    getAllTodosService: async () => {
+    //TODO refactor using local database from firebase
+    getAllTodos: async (): Promise<TaskType[] | null> => {
+        const todosRef = ref(database, TODOS_DATABASE_PATH);
         try {
-            const response = await fetch(`${process.env.SERVICE_URL}/todos`);
-            //TODO how to set up database Real Time Database (preferred horizontal structure)
-            const todos = await response.json();
-            return todos as Array<TaskType>;
+            const snapshot = await get(todosRef);
+            const todos: TaskType[] = snapshot.exists()
+                ? Object.values(snapshot.val())
+                : [];
+
+            return todos;
         } catch (error) {
-            console.error('Error in getAllTodosService:', error);
+            console.error('Error updating task:', error);
+            // throw error; // You can handle the error as needed
             return null;
         }
     },
-    addTodoService: async (payload: string) => {
+    createTodo: async (todo: TaskType): Promise<TaskType | null> => {
+        const todosRef = ref(database, TODOS_DATABASE_PATH);
         try {
-            const resp = await fetch(`${process.env.SERVICE_URL}/todos`, {
-                method: HTTP_METHODS.POST,
-                headers: {
-                    'Content-Type': CONTENT_TYPE,
-                },
-                body: JSON.stringify({ todo: payload }),
-            });
-
-            const todo = await resp.json();
-            return todo as TaskType;
+            const newTodoRef = push(todosRef);
+            if (newTodoRef.key === null) return null;
+            const newTodo: TaskType = {
+                ...todo,
+                id: newTodoRef.key,
+            };
+            await set(newTodoRef, newTodo);
+            return newTodo;
         } catch (error) {
-            console.error('Error in addTodoService:', error);
+            console.error('Error updating task:', error);
+            // throw error; // You can handle the error as needed
             return null;
         }
     },
-    updateTodoService: async (payload: UpdateTaskParams) => {
-        try {
-            const resp = await fetch(
-                `${process.env.SERVICE_URL}/todos/${payload.id}`,
-                {
-                    method: HTTP_METHODS.PATCH,
-                    headers: {
-                        'Content-Type': CONTENT_TYPE,
-                    },
-                    body: JSON.stringify(payload),
-                }
-            );
+    updateTodo: async (taskUpdates: TaskType): Promise<TaskType | null> => {
+        const { id } = taskUpdates;
 
-            const todo = await resp.json();
-            return todo as TaskType;
+        const todoRef = ref(database, `${TODOS_DATABASE_PATH}/${id}`);
+
+        try {
+            // Update the task in the database
+            await update(todoRef, taskUpdates);
+            // Task not found
         } catch (error) {
-            console.error('Error in updateTodoService:', error);
+            console.error('Error updating task:', error);
+            // throw error; // You can handle the error as needed
             return null;
         }
+        return taskUpdates;
     },
-    deleteTodoService: async (payload: number) => {
+    deleteTodo: async (todoId: string): Promise<{ id: string } | null> => {
+        const todoRef = ref(database, `${TODOS_DATABASE_PATH}/${todoId}`);
         try {
-            const resp = await fetch(
-                `${process.env.SERVICE_URL}/todos/${payload}`,
-                {
-                    method: HTTP_METHODS.DELETE,
-                }
-            );
-
-            return { id: payload };
+            await remove(todoRef);
         } catch (error) {
-            console.error('Error in deleteTodoService:', error);
+            console.error('Error deleting task:', error);
             return null;
         }
+        return { id: todoId };
     },
 };
-
 export default todoService;

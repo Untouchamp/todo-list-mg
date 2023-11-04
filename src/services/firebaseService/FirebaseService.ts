@@ -1,17 +1,6 @@
-import {
-    getDatabase,
-    ref,
-    push,
-    set,
-    update,
-    remove,
-    get,
-    DataSnapshot,
-} from 'firebase/database';
+import { getDatabase } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { TaskType, UpdateTaskParams } from '../../components/ToDoList/types';
-import uuid from 'uuidv4';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -20,11 +9,16 @@ const firebaseConfig = {
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.FIREBASE_MSG_SENDER_ID,
     appId: process.env.FIREBASE_APP_ID,
-    databaseURL: process.env.FIREBASE_DB_URL,
+    databaseURL:
+        process.env.NODE_ENV === 'development'
+            ? 'http://127.0.0.1:9000/'
+            : process.env.FIREBASE_DB_URL,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const database = getDatabase(app);
+export const auth = getAuth(app);
 const database = getDatabase(app);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
