@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import authenticationService from '../../services/authenticationService/AuthenticationService';
+import { ProfileDropdownType } from '../ToDoList/types';
 
-function ProfileDropdown() {
+function ProfileDropdown(props: ProfileDropdownType) {
+    const { signOutCurrentUser } = props;
     const [isOpen, setIsOpen] = useState(false);
-
     const handleLogout = () => {
-        authenticationService.signOutUser();
+        signOutCurrentUser();
     };
 
     return (

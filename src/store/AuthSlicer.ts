@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import authenticationService from '../services/authenticationService/AuthenticationService';
 
 export const signInWithGoogleAsync = createAsyncThunk(
@@ -23,10 +23,22 @@ const authSlice = createSlice({
     },
     reducers: {
         setUser: (state, action) => {
+            console.log(action.payload, 'Set User Log');
+            if (!action.payload) return;
             state.user = action.payload;
         },
+        // signInUsingGooglePopup: (state) => {
+        //     const user = await authenticationService.signInWithGoogle();
+        //     if (!user) return;
+        //     console.log(user, 'User from reducer Sign In');
+        //     state.user = user;
+        // },
+        signOutUser: (state) => {
+            authenticationService.signOutUser();
+            state.user = null;
+        },
     },
-    extraReducers: (builder) => {
+    extraReducers: (builder) =>
         builder
             .addCase(signInWithGoogleAsync.pending, (state) => {
                 state.status = 'loading';
@@ -40,16 +52,9 @@ const authSlice = createSlice({
             })
             .addCase(signOutAsync.fulfilled, (state) => {
                 state.user = null;
-            });
-    },
+            }),
 });
 
-const { setUser } = authSlice.actions;
-
-export const listenForAuthChangesHandler = () => (dispatch) => {
-    authenticationService.listenForAuthChanges((authUser) => {
-        dispatch(setUser(authUser));
-    });
-};
+export const { setUser } = authSlice.actions;
 
 export default authSlice.reducer;

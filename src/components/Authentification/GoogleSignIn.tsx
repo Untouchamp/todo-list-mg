@@ -1,9 +1,10 @@
 import React from 'react';
-import authenticationService from '../../services/authenticationService/AuthenticationService';
+import { GoogleSignInType } from '../ToDoList/types';
 
-function GoogleSignIn(): JSX.Element {
-    const handleGoogleSignIn = async () => {
-        authenticationService.signInWithGoogle();
+function GoogleSignIn(props: GoogleSignInType): JSX.Element {
+    const { signInGoogle } = props;
+    const handleGoogleSignIn = () => {
+        signInGoogle();
     };
 
     return (

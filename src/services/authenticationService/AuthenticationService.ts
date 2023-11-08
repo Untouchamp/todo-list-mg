@@ -1,19 +1,15 @@
 import {
     signInWithPopup,
-    GoogleAuthProvider,
     onAuthStateChanged,
     User,
     signOut,
 } from 'firebase/auth';
-import { auth } from '../firebaseService/FirebaseService';
-
-const authProvider = new GoogleAuthProvider();
+import { auth, provider } from '../firebaseService/FirebaseService';
 
 const authenticationService = {
     signInWithGoogle: async () => {
         try {
-            const result = await signInWithPopup(auth, authProvider);
-            console.log(result.user, 'In service');
+            const result = await signInWithPopup(auth, provider);
             return result.user;
         } catch (error) {
             console.error('Error updating task:', error);

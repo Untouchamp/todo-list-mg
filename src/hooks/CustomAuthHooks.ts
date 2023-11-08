@@ -1,20 +1,30 @@
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { signInWithGoogleAsync, signOutAsync } from '../store/AuthSlicer';
+import {
+    setUser,
+    signInWithGoogleAsync,
+    signOutAsync,
+} from '../store/AuthSlicer';
+import authenticationService from '../services/authenticationService/AuthenticationService';
 
 function useCustomAuthHooks() {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.auth.user);
-    console.log(user, 'inside');
+    useEffect(() => {
+        authenticationService.listenForAuthChanges((user) => {
+            dispatch(setUser(user));
+        });
+    }, [dispatch]);
 
     const signInGoogle = () => {
         dispatch(signInWithGoogleAsync());
     };
 
-    const signOut = () => {
+    const signOutCurrentUser = () => {
         dispatch(signOutAsync());
     };
 
-    return [user, signInGoogle, signOut, dispatch];
+    return [user, signInGoogle, signOutCurrentUser, dispatch];
 }
 
 export default useCustomAuthHooks;
