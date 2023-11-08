@@ -1,11 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import authenticationService from '../services/authenticationService/AuthenticationService';
 
+enum LOGIN_STATUS {
+    IDLE = 'idle',
+    LOADING = 'loading',
+    SUCCEEDED = 'succeeded',
+}
+
 export const signInWithGoogleAsync = createAsyncThunk(
     'auth/signInWithGoogle',
     async () => {
         const user = await authenticationService.signInWithGoogle();
-        console.log(user, 'In service');
         return user;
     }
 );
@@ -19,36 +24,24 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         user: null, // Initial user state is null.
-        status: 'idle',
+        status: LOGIN_STATUS.IDLE,
     },
     reducers: {
         setUser: (state, action) => {
-            console.log(action.payload, 'Set User Log');
             if (!action.payload) return;
+            state.status = LOGIN_STATUS.SUCCEEDED;
             state.user = action.payload;
-        },
-        // signInUsingGooglePopup: (state) => {
-        //     const user = await authenticationService.signInWithGoogle();
-        //     if (!user) return;
-        //     console.log(user, 'User from reducer Sign In');
-        //     state.user = user;
-        // },
-        signOutUser: (state) => {
-            authenticationService.signOutUser();
-            state.user = null;
         },
     },
     extraReducers: (builder) =>
         builder
             .addCase(signInWithGoogleAsync.pending, (state) => {
-                state.status = 'loading';
+                state.status = LOGIN_STATUS.LOADING;
             })
             .addCase(signInWithGoogleAsync.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                console.log(action.payload);
                 if (!action.payload) return;
+                state.status = LOGIN_STATUS.SUCCEEDED;
                 state.user = action.payload;
-                console.log(state.user);
             })
             .addCase(signOutAsync.fulfilled, (state) => {
                 state.user = null;

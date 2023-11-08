@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { ProfileDropdownType } from '../ToDoList/types';
+import StyledBurger from '../../assets/icons/StyledBurger';
 
 function ProfileDropdown(props: ProfileDropdownType) {
     const { signOutCurrentUser } = props;
     const [isOpen, setIsOpen] = useState(false);
     const handleLogout = () => {
         signOutCurrentUser();
+        window.location.reload();
     };
 
     return (
@@ -16,7 +18,7 @@ function ProfileDropdown(props: ProfileDropdownType) {
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex items-center text-white focus:outline-none"
                 >
-                    <div className="mr-2">User Profile Icon</div>
+                    <StyledBurger />
                 </button>
             </div>
 
