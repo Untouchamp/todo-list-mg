@@ -3,7 +3,7 @@ import {
     createEntityAdapter,
     createSlice,
 } from '@reduxjs/toolkit';
-import { TaskType, UpdateTaskParams } from '../components/ToDoList/types';
+import { TaskType } from '../components/ToDoList/types';
 import todoService from '../services/todoService/TodoService';
 
 export const getTodosAsync = createAsyncThunk(

@@ -1,6 +1,6 @@
 import { getDatabase } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -19,91 +19,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);
 export const auth = getAuth(app);
-const database = getDatabase(app);
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
-let authUID;
-
-// Function to handle Google sign-in
-export const signInWithGoogle = async () => {
-    try {
-        const result = await signInWithPopup(auth, googleProvider);
-        const { user } = result;
-        console.log('User signed in with Google:', user);
-        authUID = user.uid;
-        return user;
-        // You can handle user data as needed (e.g., save it to the database).
-    } catch (error) {
-        console.error('Google sign-in error:', error);
-    }
-};
-const firebaseService = {
-    getAllTodos: async (): Promise<TaskType[]> => {
-        const todosRef = ref(database, `todos/${authUID}`);
-        const snapshot = await get(todosRef);
-        const todos: TaskType[] = [];
-
-        if (snapshot.exists()) {
-            snapshot.forEach((childSnapshot: DataSnapshot) => {
-                todos.push({ id: childSnapshot.key, ...childSnapshot.val() });
-            });
-        }
-
-        return todos;
-    },
-    createTodo: async (todo: TaskType) => {
-        const todosRef = ref(database, `todos/${authUID}/${todo.id}`);
-        await set(todosRef, todo);
-        return todo;
-    },
-    updateTodo: async (params: UpdateTaskParams): Promise<TaskType | null> => {
-        const { id, description, isCompleted, isEditing } = params;
-        const todoRef = ref(database, `todos/${authUID}/${id}`);
-
-        // Creating an object with the fields to update
-        const updates: Partial<UpdateTaskParams> = {};
-
-        if (description !== undefined) {
-            updates.description = description;
-        }
-
-        if (isCompleted !== undefined) {
-            updates.isCompleted = isCompleted;
-        }
-
-        if (isEditing !== undefined) {
-            updates.isEditing = isEditing;
-        }
-
-        try {
-            // Update the task in the database
-            await update(todoRef, updates);
-
-            // Fetch the updated task from the database
-            const updatedTaskSnapshot = await get(todoRef);
-            const updatedTask = updatedTaskSnapshot.val();
-            if (updatedTask) {
-                // Return the updated task
-                return updatedTask;
-            }
-            // Task not found
-            return null;
-        } catch (error) {
-            console.error('Error updating task:', error);
-            // throw error; // You can handle the error as needed
-            return null;
-        }
-    },
-    deleteTodo: async (todoId: string): Promise<{ id: string } | null> => {
-        const todoRef = ref(database, `todos/${authUID}/${todoId}`);
-        try {
-            await remove(todoRef);
-        } catch (error) {
-            console.error('Error deleting task:', error);
-            return null;
-        }
-        return { id: todoId };
-    },
-};
-
-export default firebaseService;
+export const provider = new GoogleAuthProvider();
