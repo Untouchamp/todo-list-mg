@@ -6,7 +6,11 @@ function StylizedButton(props: StylizedButtonType): JSX.Element {
 
     return (
         <div>
-            <button type="button" onClick={clickHandler}>
+            <button
+                className="bg-purple-500 text-white py-3 px-4 rounded-md mb-4 cursor-pointer"
+                type="button"
+                onClick={clickHandler}
+            >
                 {buttonDescription}
             </button>
         </div>

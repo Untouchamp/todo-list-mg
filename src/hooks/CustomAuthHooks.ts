@@ -14,7 +14,7 @@ import { selectUser, selectUserStatus } from '../store/store';
 function useCustomAuthHooks() {
     const dispatch = useAppDispatch();
     const user: User = useAppSelector(selectUser);
-    const isLoaded: boolean =
+    const isLoading: boolean =
         useAppSelector(selectUserStatus) !== LOGIN_STATUS.SUCCEEDED;
 
     useEffect(() => {
@@ -32,7 +32,7 @@ function useCustomAuthHooks() {
         dispatch(signOutAsync());
     };
 
-    return [user, isLoaded, signInGoogle, signOutCurrentUser, dispatch];
+    return [user, isLoading, signInGoogle, signOutCurrentUser, dispatch];
 }
 
 export default useCustomAuthHooks;
