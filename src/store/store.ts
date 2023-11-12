@@ -16,3 +16,5 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const { selectAll: selectAllTodos } =
     todosAdapter.getSelectors<RootState>((state) => state.todos);
+export const selectUser = (state) => state.auth.user;
+export const selectUserStatus = (state) => state.auth.status;

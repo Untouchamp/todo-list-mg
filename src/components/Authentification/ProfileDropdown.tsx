@@ -12,33 +12,24 @@ function ProfileDropdown(props: ProfileDropdownType) {
 
     return (
         <div className="relative inline-block text-right">
-            <div>
-                <button
-                    type="button"
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="flex items-center text-white focus:outline-none"
-                >
-                    <StyledBurger />
-                </button>
-            </div>
+            <button
+                type="button"
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center text-white focus:outline-none"
+            >
+                <StyledBurger />
+            </button>
 
             {isOpen && (
                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                    <div
-                        className="py-1"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="options-menu"
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                        role="menuitem"
                     >
-                        <button
-                            type="button"
-                            onClick={handleLogout}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                            role="menuitem"
-                        >
-                            Log Out
-                        </button>
-                    </div>
+                        Log Out
+                    </button>
                 </div>
             )}
         </div>

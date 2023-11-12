@@ -55,6 +55,13 @@ export type ProfileDropdownType = {
     signOutCurrentUser: Function;
 };
 
-export type GoogleSignInType = {
+export type StylizedButtonType = {
+    clickHandler: Function;
+    buttonDescription: Function;
+};
+
+export type AuthSectionType = {
+    user: User | null;
     signInGoogle: Function;
+    signOutCurrentUser: Function;
 };

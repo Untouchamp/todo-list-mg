@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import authenticationService from '../services/authenticationService/AuthenticationService';
 
-enum LOGIN_STATUS {
+export enum LOGIN_STATUS {
     IDLE = 'idle',
     LOADING = 'loading',
     SUCCEEDED = 'succeeded',
@@ -29,8 +29,11 @@ const authSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             if (!action.payload) return;
-            state.status = LOGIN_STATUS.SUCCEEDED;
             state.user = action.payload;
+        },
+        setLoading: (state, action) => {
+            if (!action.payload) return;
+            state.status = LOGIN_STATUS.SUCCEEDED;
         },
     },
     extraReducers: (builder) =>
@@ -48,6 +51,6 @@ const authSlice = createSlice({
             }),
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, setLoading } = authSlice.actions;
 
 export default authSlice.reducer;
