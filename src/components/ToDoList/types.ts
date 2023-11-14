@@ -1,3 +1,5 @@
+import { User } from 'firebase/auth';
+
 export type TaskType = {
     id: string;
     description: string;
@@ -40,4 +42,26 @@ export type UpdateTaskParams = {
     description?: string;
     isCompleted?: boolean;
     isEditing?: boolean;
+};
+
+export type CustomAuthHooksType = {
+    user: User;
+    signInGoogle: Function;
+    signOutCurrentUser: Function;
+    dispatch: Function;
+};
+
+export type ProfileDropdownType = {
+    signOutCurrentUser: Function;
+};
+
+export type StylizedButtonType = {
+    clickHandler: Function;
+    buttonDescription: Function;
+};
+
+export type AuthSectionType = {
+    user: User | null;
+    signInGoogle: Function;
+    signOutCurrentUser: Function;
 };
