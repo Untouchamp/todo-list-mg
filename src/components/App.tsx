@@ -27,7 +27,7 @@ function App(): JSX.Element {
                     />
                 )}
             </div>
-            {user ? <TodoWrapper /> : null}
+            {user ?? <TodoWrapper />}
         </div>
     );
 }
