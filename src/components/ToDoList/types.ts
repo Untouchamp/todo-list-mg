@@ -13,7 +13,7 @@ export type TodoFormPropType = {
 
 export type TodoPropsType = {
     task: TaskType;
-    deleteTodo: Function;
+    deleteTask: Function;
     updateTask: Function;
 };
 
@@ -33,7 +33,7 @@ export type EditingPenIconPropType = {
 export type CustomTypeHooksType = {
     tasks: Array<TaskType>;
     addTask: Function;
-    deleteTodo: Function;
+    deleteTask: Function;
     updateTask: Function;
 };
 
@@ -57,7 +57,7 @@ export type ProfileDropdownType = {
 
 export type StylizedButtonType = {
     clickHandler: Function;
-    buttonDescription: Function;
+    buttonDescription: string;
 };
 
 export type AuthSectionType = {

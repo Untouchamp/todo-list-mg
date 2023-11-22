@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { TodoFormPropType } from './types';
+import { TodoFormPropType } from '../types';
 
 function TodoForm(props: TodoFormPropType): JSX.Element {
     const { addTask } = props;
