@@ -20,12 +20,12 @@ describe('ProfileDropdown component', () => {
         const button = getByTestId('profile-dropdown');
         fireEvent.click(button);
 
-        // const dropdown = screen.getByTestId('sign-out');
-        //
-        // expect(dropdown).toBeInTheDocument();
-        //
-        // fireEvent.click(button);
-        // expect(dropdown).not.toBeInTheDocument();
+        const dropdown = screen.getByTestId('sign-out');
+
+        expect(dropdown).toBeInTheDocument();
+
+        fireEvent.click(button);
+        expect(dropdown).not.toBeInTheDocument();
     });
 
     it('calls signOutCurrentUser when "Log Out" is clicked', () => {
@@ -37,9 +37,9 @@ describe('ProfileDropdown component', () => {
         const button = getByTestId('profile-dropdown');
         fireEvent.click(button);
 
-        // const logOutButton = screen.getByTestId('sign-out');
-        // fireEvent.click(logOutButton);
-        //
-        // expect(signOutCurrentUserMock).toHaveBeenCalled();
+        const logOutButton = screen.getByTestId('sign-out');
+        fireEvent.click(logOutButton);
+
+        expect(signOutCurrentUserMock).toHaveBeenCalled();
     });
 });

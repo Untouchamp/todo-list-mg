@@ -11,11 +11,9 @@ function ProfileDropdown(props: ProfileDropdownType) {
     };
 
     return (
-        <div
-            data-testid="profile-dropdown"
-            className="relative inline-block text-right"
-        >
+        <div className="relative inline-block text-right">
             <button
+                data-testid="profile-dropdown"
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center text-white focus:outline-none"
