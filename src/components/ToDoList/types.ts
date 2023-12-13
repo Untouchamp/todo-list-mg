@@ -30,12 +30,13 @@ export type EditingPenIconPropType = {
     isTaskCompleted: boolean;
 };
 
-export type CustomTypeHooksType = {
-    tasks: Array<TaskType>;
-    addTask: Function;
-    deleteTask: Function;
-    updateTask: Function;
-};
+export type CustomTypeHooksType = [
+    tasks: TaskType[],
+    addTask: (task: string) => void,
+    deleteTask: Function,
+    updateTask: Function,
+    dispatch: Function
+];
 
 export type UpdateTaskParams = {
     id: string;

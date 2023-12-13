@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 const descriptionMock = 'Dummy';
 
 describe('Todo component', () => {
-    test('Todo renders correctly', () => {
+    test('renders correctly', () => {
         const task = {
             id: '1',
             description: descriptionMock,
@@ -30,7 +30,7 @@ describe('Todo component', () => {
         expect(deleteButton).toBeInTheDocument();
     });
 
-    test('Todo calls updateTask function when editing button is clicked', () => {
+    test('calls updateTask function when editing button is clicked', () => {
         const task = {
             id: '1',
             description: descriptionMock,
@@ -55,7 +55,7 @@ describe('Todo component', () => {
         });
     });
 
-    test('Todo calls deleteTask function when delete button is clicked', () => {
+    test('calls deleteTask function when delete button is clicked', () => {
         const task = {
             id: '1',
             description: descriptionMock,
@@ -74,6 +74,30 @@ describe('Todo component', () => {
 
         fireEvent.click(deleteButton);
 
-        expect(deleteTask).toHaveBeenCalledWith('1');
+        expect(deleteTask).toHaveBeenCalledWith(task.id);
+    });
+
+    // Renders a todo item with isCompleted set to true
+    it('should render a todo item with isCompleted set to true', () => {
+        // Arrange
+        const task = {
+            id: '1',
+            isEditing: false,
+            description: 'Task description',
+            isCompleted: true,
+        };
+        const deleteTask = jest.fn();
+        const updateTask = jest.fn();
+
+        // Act
+        render(
+            <Todo task={task} deleteTask={deleteTask} updateTask={updateTask} />
+        );
+
+        // Assert
+        expect(screen.getByTestId('todo-1')).toBeInTheDocument();
+        expect(screen.getByText('Task description')).toHaveClass(
+            'text-purple-300 line-through'
+        );
     });
 });
