@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import TodoWrapper from './ToDoList/TodoWrapper';
+import TodoWrapper from './ToDoList/TodoWrapper/TodoWrapper';
 import useCustomAuthHooks from '../hooks/CustomAuthHooks';
 import { CustomAuthHooksType } from './ToDoList/types';
-import AuthSection from './Authentification/AuthSection';
+import AuthSection from './Authentification/AuthSection/AuthSection';
 import LoadingSpinner from '../assets/icons/LoadingSpinner';
 
 function App(): JSX.Element {
@@ -27,7 +27,7 @@ function App(): JSX.Element {
                     />
                 )}
             </div>
-            {user ?? <TodoWrapper />}
+            {user && <TodoWrapper />}
         </div>
     );
 }

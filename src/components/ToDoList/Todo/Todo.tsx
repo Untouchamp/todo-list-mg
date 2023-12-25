@@ -1,16 +1,19 @@
 import React from 'react';
-import { TodoPropsType } from './types';
-import EditTodoForm from './EditTodoForm';
-import StyledBurger from '../../assets/icons/StyledBurger';
-import TrashBinIcon from '../../assets/icons/TrashBinIcon';
-import EditingPenIcon from '../../assets/icons/EditingPenIcon';
+import { TodoPropsType } from '../types';
+import EditTodoForm from '../EditTodoForm/EditTodoForm';
+import StyledBurger from '../../../assets/icons/StyledBurger';
+import TrashBinIcon from '../../../assets/icons/TrashBinIcon';
+import EditingPenIcon from '../../../assets/icons/EditingPenIcon';
 
 function Todo(props: TodoPropsType): JSX.Element {
     const { task, deleteTask, updateTask } = props;
     const { id, isEditing, description, isCompleted } = task;
 
     return (
-        <div className="flex relative justify-between">
+        <div
+            data-testid={`todo-${id}`}
+            className="flex relative justify-between"
+        >
             <span className="flex items-center py-3 px-1 mb-4 cursor-grab text-purple-400">
                 <StyledBurger />
             </span>
@@ -33,6 +36,7 @@ function Todo(props: TodoPropsType): JSX.Element {
                     </p>
                     <div className="flex items-center ml-6">
                         <button
+                            data-testid="edit-button"
                             type="button"
                             disabled={isCompleted}
                             onClick={() =>
@@ -44,7 +48,11 @@ function Todo(props: TodoPropsType): JSX.Element {
                         >
                             <EditingPenIcon isTaskCompleted={isCompleted} />
                         </button>
-                        <button type="button" onClick={() => deleteTask(id)}>
+                        <button
+                            data-testid="delete-button"
+                            type="button"
+                            onClick={() => deleteTask(id)}
+                        >
                             <TrashBinIcon />
                         </button>
                     </div>

@@ -13,7 +13,7 @@ export type TodoFormPropType = {
 
 export type TodoPropsType = {
     task: TaskType;
-    deleteTodo: Function;
+    deleteTask: Function;
     updateTask: Function;
 };
 
@@ -30,12 +30,13 @@ export type EditingPenIconPropType = {
     isTaskCompleted: boolean;
 };
 
-export type CustomTypeHooksType = {
-    tasks: Array<TaskType>;
-    addTask: Function;
-    deleteTodo: Function;
-    updateTask: Function;
-};
+export type CustomTypeHooksType = [
+    tasks: TaskType[],
+    addTask: (task: string) => void,
+    deleteTask: Function,
+    updateTask: Function,
+    dispatch: Function
+];
 
 export type UpdateTaskParams = {
     id: string;
@@ -56,12 +57,12 @@ export type ProfileDropdownType = {
 };
 
 export type StylizedButtonType = {
-    clickHandler: Function;
-    buttonDescription: Function;
+    clickHandler: () => void;
+    buttonDescription: string;
 };
 
 export type AuthSectionType = {
     user: User | null;
-    signInGoogle: Function;
+    signInGoogle: () => void;
     signOutCurrentUser: Function;
 };

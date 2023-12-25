@@ -1,7 +1,7 @@
 import React from 'react';
-import ProfileDropdown from './ProfileDropdown';
-import StylizedButton from '../StylizedElements/StylizedButton';
-import { AuthSectionType } from '../ToDoList/types';
+import ProfileDropdown from '../ProfileDropdown/ProfileDropdown';
+import StylizedButton from '../../StylizedElements/StylizedButton/StylizedButton';
+import { AuthSectionType } from '../../ToDoList/types';
 
 function AuthSection(props: AuthSectionType): JSX.Element {
     const { user, signInGoogle, signOutCurrentUser } = props;

@@ -21,7 +21,11 @@ const todoService = {
             return null;
         }
     },
-    createTodo: async (todo: TaskType): Promise<TaskType | null> => {
+    createTodo: async (todo: {
+        description: string,
+        isCompleted: boolean,
+        isEditing: boolean,
+    }): Promise<TaskType | null> => {
         const todosRef = ref(database, `${userId()}/${TODOS_DATABASE_PATH}`);
 
         try {

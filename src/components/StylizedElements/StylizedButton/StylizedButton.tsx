@@ -1,5 +1,5 @@
 import React from 'react';
-import { StylizedButtonType } from '../ToDoList/types';
+import { StylizedButtonType } from '../../ToDoList/types';
 
 function StylizedButton(props: StylizedButtonType): JSX.Element {
     const { clickHandler, buttonDescription } = props;

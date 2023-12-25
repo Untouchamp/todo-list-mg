@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
-import { EditTodoFormPropType } from './types';
-import INPUT_MAX_LENGTH from '../../constants/constants';
+import { EditTodoFormPropType } from '../types';
+import INPUT_MAX_LENGTH from '../../../constants/constants';
 
 function EditTodoForm(props: EditTodoFormPropType): JSX.Element {
     const { updateTask, task } = props;
