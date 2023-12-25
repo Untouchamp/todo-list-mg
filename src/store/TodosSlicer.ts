@@ -16,7 +16,11 @@ export const getTodosAsync = createAsyncThunk(
 
 export const addTodoAsync = createAsyncThunk(
     'todos/addTodoAsync',
-    async (payload: string) => {
+    async (payload: {
+        description: string,
+        isCompleted: boolean,
+        isEditing: boolean,
+    }) => {
         const addedTodo = await todoService.createTodo(payload);
         return addedTodo;
     }
@@ -32,7 +36,7 @@ export const updateTodoAsync = createAsyncThunk(
 
 export const deleteTodoAsync = createAsyncThunk(
     'todos/deleteTodoAsync',
-    async (payload: number) => {
+    async (payload: string) => {
         const deletedTodoId = await todoService.deleteTodo(payload);
         return deletedTodoId;
     }

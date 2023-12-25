@@ -1,11 +1,10 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
+
 module.exports = {
-    transform: {
-        '^.+\\.tsx?$': 'ts-jest',
-    },
+    preset: 'ts-jest',
     testEnvironment: 'jsdom',
     testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    // "setupFiles": [
-    //     "<rootDir>/test/setupTests.ts"
-    // ]
+    collectCoverage: true,
+    coverageReporters: ['html'],
 };
