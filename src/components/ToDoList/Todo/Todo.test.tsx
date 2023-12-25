@@ -6,14 +6,14 @@ import '@testing-library/jest-dom';
 const descriptionMock = 'Dummy';
 
 describe('Todo component', () => {
-    test('renders correctly', () => {
-        const task = {
-            id: '1',
-            description: descriptionMock,
-            isEditing: false,
-            isCompleted: false,
-        };
+    const task = {
+        id: '1',
+        description: descriptionMock,
+        isEditing: false,
+        isCompleted: false,
+    };
 
+    test('renders correctly', () => {
         const deleteTask = jest.fn();
         const updateTask = jest.fn();
 
@@ -31,13 +31,6 @@ describe('Todo component', () => {
     });
 
     test('calls updateTask function when editing button is clicked', () => {
-        const task = {
-            id: '1',
-            description: descriptionMock,
-            isEditing: false,
-            isCompleted: false,
-        };
-
         const deleteTask = jest.fn();
         const updateTask = jest.fn();
 
@@ -56,13 +49,6 @@ describe('Todo component', () => {
     });
 
     test('calls deleteTask function when delete button is clicked', () => {
-        const task = {
-            id: '1',
-            description: descriptionMock,
-            isEditing: false,
-            isCompleted: false,
-        };
-
         const deleteTask = jest.fn();
         const updateTask = jest.fn();
 
@@ -80,10 +66,8 @@ describe('Todo component', () => {
     // Renders a todo item with isCompleted set to true
     it('should render a todo item with isCompleted set to true', () => {
         // Arrange
-        const task = {
-            id: '1',
-            isEditing: false,
-            description: 'Task description',
+        const completedTask = {
+            ...task,
             isCompleted: true,
         };
         const deleteTask = jest.fn();
@@ -91,12 +75,16 @@ describe('Todo component', () => {
 
         // Act
         render(
-            <Todo task={task} deleteTask={deleteTask} updateTask={updateTask} />
+            <Todo
+                task={completedTask}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+            />
         );
 
         // Assert
         expect(screen.getByTestId('todo-1')).toBeInTheDocument();
-        expect(screen.getByText('Task description')).toHaveClass(
+        expect(screen.getByText(descriptionMock)).toHaveClass(
             'text-purple-300 line-through'
         );
     });
