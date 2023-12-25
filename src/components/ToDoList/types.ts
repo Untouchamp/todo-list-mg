@@ -57,12 +57,12 @@ export type ProfileDropdownType = {
 };
 
 export type StylizedButtonType = {
-    clickHandler: Function;
+    clickHandler: () => void;
     buttonDescription: string;
 };
 
 export type AuthSectionType = {
     user: User | null;
-    signInGoogle: Function;
+    signInGoogle: () => void;
     signOutCurrentUser: Function;
 };
